@@ -6,10 +6,11 @@ html(lang="ko")
   body
     header 
       nav 
-        ul  
+        ul
           li 
             a(href="/login") Login
+            a(href="/video/upload") Upload Video
       h1= pageTitle
     main
-      block content 
-      include partials/footer.pug
+      block content
+    include partials/footer.pug

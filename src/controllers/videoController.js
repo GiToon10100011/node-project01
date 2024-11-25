@@ -1,31 +1,22 @@
-const videos = [
-  {
-    id: 1,
-    title: "First Video",
-    createdAt: "2 mins ago",
-    views: 59,
-    comments: 2,
-    ratings: 5,
-  },
-  {
-    id: 2,
-    title: "Second Video",
-    createdAt: "2 mins ago",
-    views: 49,
-    comments: 2,
-    ratings: 5,
-  },
-  {
-    id: 3,
-    title: "Third Video",
-    createdAt: "2 mins ago",
-    views: 59,
-    comments: 2,
-    ratings: 5,
-  },
-];
-export const trending = (req, res) => {
-  res.render("home", { pageTitle: "Home", videos });
+import Video from "../models/video";
+
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    return res.render("home", { pageTitle: "Home", videos });
+  } catch (error) {
+    return res.render("server-error", { error });
+  }
+
+  //에러가 발생했을때와 데이터를 찾아왔을때
+  // await videoModel
+  // .find()
+  // .then((videos) => {
+  //   console.log("videos", videos);
+  //   return res.render("home", { pageTitle: "Home", videos: [] });
+  // })
+  // .catch((e) => console.error(e));
+  // console.log("start");
 };
 export const watch = (req, res) => {
   console.log(req.params.id);
@@ -50,17 +41,22 @@ export const search = (req, res) => res.send("Search Video");
 export const getUpload = (req, res) => {
   res.render("upload", { pageTitle: "Upload Video" });
 };
-export const postUpload = (req, res) => {
-  const { title } = req.body;
-  const newVideo = {
-    id: videos.length + 1,
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  const video = new Video({
     title,
-    createdAt: "Just Now",
-    views: 0,
-    comments: 0,
-    ratings: 0,
-  };
-  videos.push(newVideo);
+    description,
+    hashtags: hashtags
+      .replace(/\s/g, "")
+      .split(",")
+      .map((tag) => `#${tag}`),
+    meta: {
+      views: 0,
+      rating: 0,
+    },
+    createdAt: Date.now(),
+  });
+  const dbVideo = await video.save();
   return res.redirect("/");
 };
 export const deleteVideo = (req, res) => res.send("Delete Video");

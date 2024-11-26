@@ -3,12 +3,20 @@ html(lang="ko")
   head 
     <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
     title #{pageTitle} | Youtube
+    style.
+      nav ul{
+        display: flex;
+        gap: 4px;
+      }
   body
     header 
       nav 
         ul
           li 
+            a(href="/") Home
+          li   
             a(href="/login") Login
+          li   
             a(href="/video/upload") Upload Video
       h1= pageTitle
     main

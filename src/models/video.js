@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 
-export const formHashtags = (hashtags) => {
-  return hashtags
-    .replace(/\s/g, "")
-    .split(",")
-    .map((tag) =>
-      tag.startsWith("#")
-        ? tag
-        : `
-#${tag}`
-    );
-};
+// export const formHashtags = (hashtags) => {
+//   return hashtags
+//     .replace(/\s/g, "")
+//     .split(",")
+//     .map((tag) =>
+//       tag.startsWith("#")
+//         ? tag
+//         : `
+// #${tag}`
+//     );
+// };
 
 const videoSchema = new mongoose.Schema({
   title: { type: String, maxLength: 80, required: true, uppercase: true },
   description: { minLength: 10, type: String },
-  createdAt: { type: Date, required: true, default: Date.now() },
+  createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String, trim: true }],
   meta: {
     views: { type: Number, required: true, default: 0 },
@@ -35,6 +35,18 @@ const videoSchema = new mongoose.Schema({
 // #${tag}`
 //     );
 // });
+
+videoSchema.static("formatHashtags", (hashtags) => {
+  return hashtags
+    .replace(/\s/g, "")
+    .split(",")
+    .map((tag) =>
+      tag.startsWith("#")
+        ? tag
+        : `
+#${tag}`
+    );
+});
 
 const Video = mongoose.model("Video", videoSchema);
 export default Video;

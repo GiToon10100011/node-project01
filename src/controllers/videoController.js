@@ -2,7 +2,7 @@ import Video, { formHashtags } from "../models/video";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ createdAt: "desc" });
     return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     return res.render("404", { error });
@@ -48,7 +48,7 @@ export const postEdit = async (req, res) => {
   await Video.findByIdAndUpdate(id, {
     title,
     description,
-    hashtags: formHashtags(hashtags),
+    hashtags: Video.formatHashtags(hashtags),
   });
   // video.title = title;
   // video.description = description;
@@ -64,7 +64,18 @@ export const postEdit = async (req, res) => {
   // await video.save();
   return res.redirect(`/video/${id}`);
 };
-export const search = (req, res) => res.send("Search Video");
+export const search = async (req, res) => {
+  const { q } = req.query;
+  let videos = [];
+  if (q) {
+    videos = await Video.find({
+      title: {
+        $regex: new RegExp(q, "i"),
+      },
+    });
+    return res.render("search", { pageTitle: `Search: ${q}`, videos });
+  }
+};
 export const getUpload = (req, res) => {
   res.render("upload", { pageTitle: "Upload Video" });
 };
@@ -74,7 +85,7 @@ export const postUpload = async (req, res) => {
     await Video.create({
       title,
       description,
-      hashtags: formHashtags(hashtags),
+      hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");
   } catch (error) {
@@ -99,4 +110,8 @@ export const postUpload = async (req, res) => {
   // });
   // const dbVideo = await video.save();
 };
-export const deleteVideo = (req, res) => res.send("Delete Video");
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+  await Video.findByIdAndDelete(id);
+  return res.redirect("/");
+};

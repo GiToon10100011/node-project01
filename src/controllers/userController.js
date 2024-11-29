@@ -4,6 +4,14 @@ export const getJoin = (req, res) =>
   res.render("join", { pageTitle: "Create Account" });
 export const postJoin = async (req, res) => {
   const { email, username, password, name, location } = req.body;
+  const exists = await User.exists({ $or: [{ username }, { email }] });
+  const pageTitle = "Join";
+  if(exists){
+    return res.render("join", {
+      pageTitle,
+      errorMessage: "This username/email has already been taken.",
+    });
+  }
   await User.create({
     email,
     username,

@@ -1,5 +1,7 @@
 extends base.pug
 block content 
+  if errorMessage 
+    h1(style="color: red;")=errorMessage
   form(method="post") 
     input(type="email", name="email" placeholder="Email" required)
     input(type="text", name="username" placeholder="Username" required)

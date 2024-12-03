@@ -1,11 +1,16 @@
 extends base.pug
 block content 
   if errorMessage 
-    h1(style="color: red;")=errorMessage
+    span(style="color: red;")=errorMessage
   form(method="post") 
     input(type="email", name="email" placeholder="Email" required)
     input(type="text", name="username" placeholder="Username" required)
     input(type="password", name="password" placeholder="Password" required)
+    input(type="password", name="passwordConfirm" placeholder="Confirm Password" required)
     input(type="text", name="name" placeholder="Nickname" required)
     input(type="text", name="location" placeholder="Location" required)
     input(type="submit", value="Create Account")
+  hr
+  div
+    span Already have an account? 
+    a(href="/login") Login &rarr;

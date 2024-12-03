@@ -2,7 +2,7 @@ doctype html
 html(lang="ko")
   head 
     <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
-    title #{pageTitle} | Youtube
+    title #{pageTitle} | #{siteName}
     style.
       nav ul{
         display: flex;
@@ -10,14 +10,21 @@ html(lang="ko")
       }
   body
     header 
+      h1=nickname
       nav 
         ul
           li 
             a(href="/") Home
-          li   
-            a(href="/login") Login
-          li   
-            a(href="/join") Signup
+          if loggedIn
+            li
+              a(href="/logout") Logout
+            li 
+              a(href="/my-profile") #{loggedUser.name}의 Profile
+          else
+            li   
+              a(href="/login") Login
+            li   
+              a(href="/join") Signup
           li   
             a(href="/video/upload") Upload Video
           li   

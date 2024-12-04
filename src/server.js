@@ -15,14 +15,14 @@ app.use(log);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: "hello",
+    secret: process.env.COOKIE_SECRET,
     //특정 시간이 지나면 세션데이터를 업데이트 시킴.
     //유저가 오지않아도 계속 데이터가 업데이트 되므로 조금 비효율적일 수 있음.
     resave: true,
     //실행(init)이 되기 전까지도 세션데이터를 저장시킴, 초기화되지 않은 세션이더라도 데이터들을 저장시킴
     saveUninitialized: true,
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/nodeproject01db",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );

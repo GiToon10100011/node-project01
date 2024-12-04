@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://127.0.0.1:27017/nodeproject01db");
+mongoose.connect(process.env.DB_URL);
 
 const db = mongoose.connection;
 
@@ -11,4 +11,3 @@ db.on("error", () => console.log("❌ DB error"));
 
 //최초 접속 이벤트
 db.once("open", handleInit);
-

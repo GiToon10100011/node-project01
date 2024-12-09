@@ -1,0 +1,16 @@
+extends base.pug
+block content   
+  if errorMessage 
+    p=errorMessage
+  img(src=loggedUser.avatarUrl, alt="avatar" width="100px" height="100px")
+  form(method="post" enctype="multipart/form-data")
+    label(for="avatar") 
+    input(type="file", name="avatar" id="avatar" accept="image/*")
+    input(type="text", name="name" placeholder="Name" value=loggedUser.name required)
+    input(type="text", name="email" placeholder="Email" value=loggedUser.email required)
+    input(type="text", name="username" placeholder="Username" value=loggedUser.username required)
+    input(type="text", name="location" placeholder="Location" value=loggedUser.location required)
+    input(type="submit", value="Update Profile")
+    if !loggedUser.snsType 
+      hr
+      a(href="change-password") Change Password &rarr;

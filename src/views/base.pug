@@ -18,15 +18,17 @@ html(lang="ko")
           if loggedIn
             li
               a(href="/users/logout") Logout
+            li   
+              a(href=`/users/${loggedUser._id}`) My Profile
             li 
-              a(href="/my-profile") #{loggedUser.name}의 Profile
+              a(href="/users/edit") Edit Profile
+            li   
+              a(href="/video/upload") Upload Video
           else
             li   
               a(href="/login") Login
             li   
               a(href="/join") Signup
-          li   
-            a(href="/video/upload") Upload Video
           li   
             a(href="/search") Search
       h1= pageTitle

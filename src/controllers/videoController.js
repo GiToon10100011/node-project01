@@ -1,3 +1,4 @@
+import User from "../models/user";
 import Video, { formHashtags } from "../models/video";
 
 export const home = async (req, res) => {
@@ -19,13 +20,16 @@ export const home = async (req, res) => {
   // console.log("start");
 };
 export const watch = async (req, res) => {
-  const video = await Video.findById(req.params.id);
+  //ref속성을 통해 준 모델을 알아서 가져올 수 잇게함.
+  const video = await Video.findById(req.params.id).populate("owner");
+  console.log(video);
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video Not Found" });
   }
   res.render("watch", {
     pageTitle: video.title,
     video,
+    owner: video.owner,
   });
 };
 export const getEdit = async (req, res) => {
@@ -80,13 +84,25 @@ export const getUpload = (req, res) => {
   res.render("upload", { pageTitle: "Upload Video" });
 };
 export const postUpload = async (req, res) => {
-  const { title, description, hashtags } = req.body;
+  const {
+    body: { title, description, hashtags },
+    file,
+    session: {
+      loggedUser: { _id },
+    },
+  } = req;
   try {
-    await Video.create({
+    const newVideo = await Video.create({
+      fileUrl: file.path.replace(/\\/g, "/"),
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
+      owner: _id,
     });
+    const user = await User.findById(_id);
+    user.videos.push(newVideo._id);
+    console.log(user);
+    user.save();
     return res.redirect("/");
   } catch (error) {
     console.error(error);

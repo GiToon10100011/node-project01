@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
-  username: { type: String, required: true, unique: true },
+  username: { type: String, unique: true },
   password: { type: String },
   name: { type: String, required: true },
   location: { type: String },
@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   avatarUrl: String,
+  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 
 userSchema.pre("save", async function () {

@@ -1,8 +1,9 @@
 extends base.pug
 include mixins/video.pug
 block content
-  h2 Welcome! Here you can see the following videos: 
-  each video in videos
-    +video(video)
-  else 
-    li Sorry, Nothing here
+  h2.home-title Welcome! Here you can see the following videos: 
+  div.videos
+    each video in videos
+      +video(video)
+    else 
+      span.videos-empty No Videos Found.

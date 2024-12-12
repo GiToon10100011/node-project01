@@ -42,6 +42,8 @@ app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/video", videoRouter);
+//uploads라는 이름으로 찾아오겠다
 app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets"));
 
 export default app;

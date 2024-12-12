@@ -1,0 +1,13 @@
+//Config
+@import "./config/variables.scss";
+@import "./config/reset.scss";
+
+//Screens
+@import "./screens/home.scss";
+@import "./screens/search.scss"; 
+
+//Components
+@import "./components/header.scss";
+@import "./components/footer.scss";
+@import "./components/video.scss";
+@import "./components/common.scss";

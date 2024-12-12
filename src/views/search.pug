@@ -1,11 +1,12 @@
 extends base.pug
 include mixins/video.pug
 block content 
-  form(method="get")
+  form(method="get").search-form
     input(type="text" name="q" placeholder="Search by Title")
     input(type="submit" value="Search")
   br
-  each video in videos
-    +video(video)
-  else 
-    li Sorry, Nothing here
+  div.videos
+    each video in videos
+      +video(video)
+    else 
+      span.videos-empty=pageTitle

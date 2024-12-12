@@ -1,37 +1,13 @@
 doctype html
 html(lang="ko")
   head 
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+    //- <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+    <link rel="stylesheet" href="/assets/css/style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     title #{pageTitle} | #{siteName}
-    style.
-      nav ul{
-        display: flex;
-        gap: 4px;
-      }
   body
-    header 
-      h1=nickname
-      nav 
-        ul
-          li 
-            a(href="/") Home
-          if loggedIn
-            li
-              a(href="/users/logout") Logout
-            li   
-              a(href=`/users/${loggedUser._id}`) My Profile
-            li 
-              a(href="/users/edit") Edit Profile
-            li   
-              a(href="/video/upload") Upload Video
-          else
-            li   
-              a(href="/login") Login
-            li   
-              a(href="/join") Signup
-          li   
-            a(href="/search") Search
-      h1= pageTitle
+    include partials/header.pug
     main
       block content
     include partials/footer.pug
+    script(src="/assets/js/main.js") 

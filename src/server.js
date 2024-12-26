@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { rootRouter } from "./routers/rootRouter";
 import { userRouter } from "./routers/userRouter";
 import { videoRouter } from "./routers/videoRouter";
+import { apiRouter } from "./routers/apiRouter";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
@@ -42,6 +43,7 @@ app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/video", videoRouter);
+app.use("/api", apiRouter);
 //uploads라는 이름으로 찾아오겠다
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));

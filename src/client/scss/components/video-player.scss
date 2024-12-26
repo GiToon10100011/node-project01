@@ -1,0 +1,42 @@
+#videoContainer {
+  position: relative;
+  video {
+    width: 100%;
+  }
+  .videoControls {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 9fr 1fr auto;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px;
+    background: rgba($color: #000000, $alpha: 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    &.showing {
+      opacity: 1;
+    }
+    .videoControls-play {
+      width: 150px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .videoControls-playBtn {
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+    .videoControls-volume {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+}

@@ -86,7 +86,7 @@ export const search = async (req, res) => {
       title: {
         $regex: new RegExp(q, "i"),
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", {
     pageTitle: q ? `Search: ${q}` : "Search a keyword",
@@ -151,4 +151,13 @@ export const deleteVideo = async (req, res) => {
   if (String(video.owner) !== _id) return res.status(403).redirect("/");
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
+};
+
+export const registerVideo = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) return res.sendStatus(404);
+  video.meta.views += 1;
+  await video.save();
+  return res.sendStatus(200);
 };

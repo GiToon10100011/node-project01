@@ -12,3 +12,20 @@
     height: 160px;
   }
 }
+
+.auth-switch {
+  text-align: center;
+  margin-top: 50px;
+  a {
+    margin-left: 10px;
+    text-decoration: underline;
+  }
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+  border-radius: 50%;
+}

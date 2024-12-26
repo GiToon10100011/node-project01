@@ -4,10 +4,15 @@
 
 //Screens
 @import "./screens/home.scss";
-@import "./screens/search.scss"; 
+@import "./screens/search.scss";
+@import "./screens/edit-profile.scss";
+@import "./screens/profile.scss";
 
 //Components
 @import "./components/header.scss";
 @import "./components/footer.scss";
 @import "./components/video.scss";
 @import "./components/common.scss";
+@import "./components/social-login.scss";
+@import "./components/form.scss";
+@import "./components/video-player.scss";

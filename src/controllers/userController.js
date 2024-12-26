@@ -188,7 +188,15 @@ export const callbackGithub = async (req, res) => {
 };
 export const check = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    // double popluate
+    // videos 안에 모든 정보를 가져오지 않고 owner만 조회
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   if (!user)
     return res.status(404).render("404", { pageTitle: "User Not Found" });
   res.render("users/profile", {

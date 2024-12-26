@@ -1,6 +1,5 @@
 mixin video(video)
   a(href=`/video/${video.id}`).videos-item
-    //- div.videos-item-thumb 
     video(src="/"+video.fileUrl  style="object-fit: cover")
     div.videos-item-data   
       span.videos-item-title=video.title

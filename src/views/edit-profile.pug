@@ -3,7 +3,7 @@ block content
   if errorMessage 
     p=errorMessage
   img(src=loggedUser.avatarUrl, alt="avatar" width="100px" height="100px")
-  form(method="post" enctype="multipart/form-data")
+  form(method="post" enctype="multipart/form-data").edit-profile-form
     label(for="avatar") 
     input(type="file", name="avatar" id="avatar" accept="image/*")
     input(type="text", name="name" placeholder="Name" value=loggedUser.name required)
@@ -12,5 +12,5 @@ block content
     input(type="text", name="location" placeholder="Location" value=loggedUser.location required)
     input(type="submit", value="Update Profile")
     if !loggedUser.snsType 
-      hr
+      div.edit-profile-password
       a(href="change-password") Change Password &rarr;
